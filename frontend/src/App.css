@@ -1,0 +1,140 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.logo {
+  width: 194px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('../public/2148061519.jpg'); 
+  background-size: cover;
+  background-position: center;
+}
+
+.app-container {
+  background: rgba(255, 255, 255, 0.5); 
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 600px; 
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+}
+
+.input-container {
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 10px;
+  width: 250px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.add-button {
+  background-color: #924DBF; /* purple */
+}
+
+.add-button:hover {
+  background-color: #924DBF; /* purple */
+}
+
+.update-button {
+  background-color: #924DBF; /* purple */
+}
+
+.update-button:hover {
+  background-color: #924DBF; /* green */
+}
+
+.edit-button {
+  background-color: #28a745; /* green */
+  margin-right: 10px;
+}
+
+.edit-button:hover {
+  background-color: #218838; /* green */
+}
+
+.delete-button {
+  background-color: #dc3545; /* red */
+}
+
+.delete-button:hover {
+  background-color: #c82333; /* red*/
+}
+
+.task-container {
+  margin-top: 20px;
+  text-align: left;
+}
+
+ul {
+  list-style-type: circle; 
+  padding-left: 20px; 
+}
+
+li {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between; /* Ensures space between text and button */
+  align-items: center; 
+  background: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+li span {
+  flex: 1; /* Take available space to push the button to the right */
+  padding-right: 10px; /* Add some spacing between text and button */
+  word-break: break-word; /* Break long words if necessary */
+}
+
+li button {
+  background-color: #dc3545;
+  padding: 5px 10px;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+li button:hover {
+  background-color: #c82333;
+}
+
+.footer {
+  margin-top: 20px;
+  color: #555;
+}

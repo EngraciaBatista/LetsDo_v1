@@ -1,0 +1,25 @@
+.task-manager {
+    margin-top: 20px;
+  }
+  
+  .input-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+  
+  .task-container ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .task-container li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .edit-button, .delete-button, .add-button, .update-button {
+    margin-left: 5px;
+  }
+  

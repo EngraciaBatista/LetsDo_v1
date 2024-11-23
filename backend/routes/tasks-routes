@@ -1,0 +1,30 @@
+const express = require("express");
+const { check } = require("express-validator");
+const tasksControllers = require("../controllers/tasks-controllers");
+
+const router = express.Router();
+
+
+router.post("/create", [
+     check("title").notEmpty(),
+     check("category").notEmpty(),
+     check("priority").isIn(["High", "Medium", "Low"])
+    ], 
+    tasksControllers.createTask
+);
+
+router.patch("/:taskID", [
+    check("title").notEmpty(),
+    check("category").notEmpty(),
+    check("priority").isIn(["High", "Medium", "Low"])
+    ],
+    tasksControllers.editTask
+);
+
+router.delete("/:taskID", tasksControllers.deleteTask);
+
+router.get("/", tasksControllers.displayTasks);
+
+router.get("/category/:category", tasksControllers.displayTasksByCategory);
+
+module.exports = router;
