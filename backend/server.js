@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
   res.send('Backend is running');
 });
 
-mongoose.connect("mongodb+srv://gail:255650@cluster0.qod2v.mongodb.net/LetsDo?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect("mongodb+srv://ghender6:uL3UlM90wB33Gs5v@cluster0.75amv.mongodb.net/LetsDo?retryWrites=true&w=majority&appName=Cluster0")
   .then(() => {
     app.listen(8080, () => {
       console.log("Server is running on http://localhost:8080");
