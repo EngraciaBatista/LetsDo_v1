@@ -1,7 +1,23 @@
 const { validationResult } = require("express-validator");
 const Task = require("../models/modelsTask");
 
-const displayTasks = async (req, res, next) => {
+
+const getTasksByUser = async (req, res, next) => {
+  try {
+    const userID = req.params.userID; 
+    const tasks = await Task.find({ user: userID });
+
+
+    res.status(200).json({
+      tasks: tasks.map(task => task.toObject({ getters: true }))
+    });
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching tasks' });
+  }
+};
+
+
+/* const displayTasks = async (req, res, next) => {
   let tasks;
 
   try {
@@ -14,8 +30,25 @@ const displayTasks = async (req, res, next) => {
     tasks: tasks.map(task => task.toObject({ getters: true }))
   });
 };
+ */
 
 const createTask = async (req, res, next) => {
+  try {
+    const { title, user } = req.body;
+    const newTask = new Task({
+      title,
+      user 
+    });
+    await newTask.save();
+    res.status(201).json(newTask);
+  } catch (err) {
+    res.status(500).json({ message: 'Error creating task' });
+  }
+};
+
+
+
+/* const createTask = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({ message: "Invalid input, please check the data provided." });
@@ -37,7 +70,7 @@ const createTask = async (req, res, next) => {
 
   res.status(201).json({ task: newTask });
 };
-
+ */
 const editTask = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -107,12 +140,9 @@ const displayTasksByCategory = async (req, res, next) => {
       });
 }
 
-exports.displayTasks = displayTasks;
+//exports.displayTasks = displayTasks;
+exports.getTasksByUser = getTasksByUser;
 exports.createTask = createTask;
 exports.displayTasksByCategory = displayTasksByCategory;
 exports.editTask = editTask;
 exports.deleteTask = deleteTask;
-
-
-
-
