@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.post("/create", [
      check("title").notEmpty(),
+     check("category").notEmpty(),
      check("priority").isIn(["High", "Medium", "Low"])
     ], 
     tasksControllers.createTask
@@ -14,6 +15,7 @@ router.post("/create", [
 
 router.patch("/:taskID", [
     check("title").notEmpty(),
+    check("category").notEmpty(),
     check("priority").isIn(["High", "Medium", "Low"])
     ],
     tasksControllers.editTask
