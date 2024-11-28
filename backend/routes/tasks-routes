@@ -23,8 +23,8 @@ router.patch("/:taskID", [
 
 router.delete("/:taskID", tasksControllers.deleteTask);
 
-router.get("/", tasksControllers.displayTasks);
+//router.get("/", tasksControllers.displayTasks);
 
-router.get("/category/:category", tasksControllers.displayTasksByCategory);
+router.get("/:userID", tasksControllers.getTasksByUser);
 
 module.exports = router;
