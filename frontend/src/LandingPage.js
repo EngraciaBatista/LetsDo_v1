@@ -114,6 +114,15 @@ function Landing() {
             />DoB
           </div>
           <div className="input-container">
+            <input
+              name="Password"
+              id="password"
+              type="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <div className="input-container">
             <button className="getStarted" type="submit">
               Get Started
             </button>
