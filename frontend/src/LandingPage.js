@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
+import Footer from './shared/Footer';
 
 function Landing() {
   const [messageIndex, setMessageIndex] = useState(0); 
@@ -35,6 +36,9 @@ function Landing() {
 
   return (
     <div className="Landing">
+      <div className={`ribbon ${allMessagesDisplayed? "fade-in": ""}`}>
+      <img className="corner-logo" src="./letsdologo_header.png" alt="LetsDo App Logo" />
+      </div>
       <div className={`typing-text ${phase}`}>
         {displayMessage}
       </div>
@@ -46,11 +50,11 @@ function Landing() {
 
         <form>
           <div className="input-container">
-          <div className="logoTitle">
+          {/*<div className="logoTitle">
           <img src="./favicon.ico" alt="landing logo" /> 
           <span className="image-label">LetsDo</span>
           
-        </div>
+        </div>*/}
           
             <input
               name="Email Address"
@@ -128,6 +132,7 @@ function Landing() {
             </button>
           </div>
         </form>
+        <Footer />
       </div>
     </div>
   );
