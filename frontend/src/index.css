@@ -54,10 +54,10 @@ code {
 
 @keyframes typing {
   from {
-    width: 0%;
+    max-width: 0%;
   }
   to {
-    width: 12.5%; 
+    max-width: 12.5%; 
   }
 }
 
@@ -132,7 +132,12 @@ button{
   border-style: hidden;
   font-size: medium;
   background: rgb(165, 105, 203);
-  color: azure;
+  color: rgb(255, 240, 229);
+  margin-bottom: 9px;
+}
+.toggle-button2{
+  width:190px;
+  height: auto;
 }
 
 h2{

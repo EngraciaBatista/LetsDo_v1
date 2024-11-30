@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
 import Footer from './shared/Footer';
+import { useNavigate } from "react-router-dom";
 
 function Landing() {
   const [messageIndex, setMessageIndex] = useState(0); 
   const [phase, setPhase] = useState("typing");
   const [allMessagesDisplayed, setAllMessagesDisplayed] = useState(false);
-  const messages = ["Take Control,", "Get Organized,", "    Let's Do!   "]; 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [dateOfBirth, setDateofBirth] = useState('');
+  const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate();
+
+  const messages = ["Take Control,", "Get Organized,", "Let's Do!"]; 
 
   useEffect(() => {
     let timer;
 
     if (phase === "typing") {
-      timer = setTimeout(() => setPhase("stay"), 2000); 
+      const typingDuration = messages[messageIndex].length * 150;
+      timer = setTimeout(() => setPhase("stay"), typingDuration); 
     } else if (phase === "stay") {
       timer = setTimeout(() => setPhase("next"), 1000); 
     } else if (phase === "next") {
@@ -33,6 +43,25 @@ function Landing() {
 
 
   const displayMessage = !allMessagesDisplayed ? messages[messageIndex] : "";
+  
+
+  const handleLogin = (e) =>{
+    e.preventDefault();
+    if (email && password){
+      console.log("Logged in:", email);
+      navigate('./tasks/Task.js');
+    }
+  };
+
+  const handleSignup = (e) =>{
+    e.preventDefault();
+    if (firstName && lastName && email && password && dateOfBirth){
+      console.log("Signed Up:", email);
+      navigate("./tasks/Task.js")
+    }
+  };
+
+
 
   return (
     <div className="Landing">
@@ -48,7 +77,9 @@ function Landing() {
       </header>
       <div className={`authFunction ${allMessagesDisplayed ? "fade-in" : ""}`}>
 
-        <form>
+
+      {isLogin ?(
+        <form onSubmit={handleLogin}>
           <div className="input-container">
           {/*<div className="logoTitle">
           <img src="./favicon.ico" alt="landing logo" /> 
@@ -61,14 +92,18 @@ function Landing() {
               placeholder="Email Address"
               id="emailAddress"
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
           <div className="input-container">
             <input
               name="Password"
-              id="password"
+              id="login-password"
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               required
             />
@@ -78,8 +113,18 @@ function Landing() {
               Sign in
             </button>
           </div>
+          <div className="input-container">
+        <button
+          type="button"
+          className="toggle-button"
+          onClick={() => setIsLogin(false)}
+        >
+          New here? Sign up!
+        </button>
+      </div>
         </form>
-        <form>
+      ):(
+        <form onSubmit={handleSignup}>
           <h2>New Here? Sign up Below!</h2>
           <div className="input-container">
             <input
@@ -87,6 +132,8 @@ function Landing() {
               id="firstName"
               placeholder="First Name"
               type="text"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
               required
             />
           </div>
@@ -96,6 +143,8 @@ function Landing() {
               id="lastName"
               placeholder="Last Name"
               type="text"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
               required
             />
           </div>
@@ -105,6 +154,8 @@ function Landing() {
               id="email"
               placeholder="Email"
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
@@ -113,15 +164,19 @@ function Landing() {
               name="Date of Birth"
               id="dateOfBirth"
               type="date"
+              value={dateOfBirth}
+              onChange={(e) => setDateofBirth(e.target.value)}
               placeholder="Date of Birth"
-              required title="Please enter you date of birth"
+              required title="Please enter your date of birth"
             />DoB
           </div>
           <div className="input-container">
             <input
               name="Password"
-              id="password"
+              id="signup-password"
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
               required
             />
@@ -131,7 +186,17 @@ function Landing() {
               Get Started
             </button>
           </div>
+          <div className="input-container">
+        <button
+          type="button"
+          className="toggle-button2"
+          onClick={() => setIsLogin(true)}
+        >
+          Already have an account? Sign in!
+        </button>
+      </div>
         </form>
+     )}
         <Footer />
       </div>
     </div>
