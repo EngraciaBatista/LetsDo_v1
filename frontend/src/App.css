@@ -1,3 +1,4 @@
+/* NOT NEEDED ANYMORE - CODE MOVED TO TASKS.CSS 
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -59,36 +60,36 @@ button:hover {
 }
 
 .add-button {
-  background-color: #924DBF; /* purple */
+  background-color: #924DBF; 
 }
 
 .add-button:hover {
-  background-color: #924DBF; /* purple */
+  background-color: #924DBF; 
 }
 
 .update-button {
-  background-color: #924DBF; /* purple */
+  background-color: #924DBF; 
 }
 
 .update-button:hover {
-  background-color: #924DBF; /* green */
+  background-color: #924DBF; 
 }
 
 .edit-button {
-  background-color: #28a745; /* green */
+  background-color: #28a745; 
   margin-right: 10px;
 }
 
 .edit-button:hover {
-  background-color: #218838; /* green */
+  background-color: #218838; 
 }
 
 .delete-button {
-  background-color: #dc3545; /* red */
+  background-color: #dc3545; 
 }
 
 .delete-button:hover {
-  background-color: #c82333; /* red*/
+  background-color: #c82333; 
 }
 
 .task-container {
@@ -104,7 +105,7 @@ ul {
 li {
   margin: 10px 0;
   display: flex;
-  justify-content: space-between; /* Ensures space between text and button */
+  justify-content: space-between; 
   align-items: center; 
   background: #fff;
   padding: 10px;
@@ -115,9 +116,9 @@ li {
 }
 
 li span {
-  flex: 1; /* Take available space to push the button to the right */
-  padding-right: 10px; /* Add some spacing between text and button */
-  word-break: break-word; /* Break long words if necessary */
+  flex: 1; 
+  padding-right: 10px; 
+  word-break: break-word; 
 }
 
 li button {
@@ -138,3 +139,4 @@ li button:hover {
   margin-top: 20px;
   color: #555;
 }
+*/
