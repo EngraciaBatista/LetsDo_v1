@@ -4,27 +4,16 @@ const tasksControllers = require("../controllers/tasks-controllers");
 
 const router = express.Router();
 
+router.post("/create", tasksControllers.createTask);
 
-router.post("/create", [
-     check("title").notEmpty(),
-     check("category").notEmpty(),
-     check("priority").isIn(["High", "Medium", "Low"])
-    ], 
-    tasksControllers.createTask
-);
-
-router.patch("/:taskID", [
-    check("title").notEmpty(),
-    check("category").notEmpty(),
-    check("priority").isIn(["High", "Medium", "Low"])
-    ],
-    tasksControllers.editTask
-);
+router.put("/:taskID", tasksControllers.editTask);
 
 router.delete("/:taskID", tasksControllers.deleteTask);
 
-//router.get("/", tasksControllers.displayTasks);
+router.get("/", tasksControllers.displayAllTasks);
 
-router.get("/:userID", tasksControllers.getTasksByUser);
+router.get("/user/:userId", tasksControllers.displayUserTasks);
+
+router.get("/category/:category", tasksControllers.displayTasksByCategory);
 
 module.exports = router;

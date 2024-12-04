@@ -1,4 +1,3 @@
-/* NOT NEEDED ANYMORE _ CODE MOVED TO TASK.JS
 import React from 'react';
 import './App.css';
 import Footer from './shared/Footer';
@@ -11,6 +10,7 @@ function App() {
         <img src="/letsdologo_header.png" alt="Logo" className="logo" />
         <h2>Task Manager</h2>
         <p>Welcome to LetsDo, your personal task manager.</p>
+        {/* Task Manager Component */}
         <TaskManager />
         <Footer />
       </div>
@@ -19,4 +19,3 @@ function App() {
 }
 
 export default App;
-*/
