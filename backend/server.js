@@ -5,6 +5,9 @@ const usersRoutes = require("./routes/users-routes");
 const tasksRoutes = require("./routes/tasks-routes");
 const cors = require("cors");
 const app = express();
+const dotenv = require("dotenv");
+dotenv.config();
+const MONGO_DB_CONNECTION_STRING = process.env.MONGO_DB_CONNECTION_STRING;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -16,9 +19,7 @@ app.get("/", (req, res) => {
 });
 
 mongoose
-  .connect(
-    "mongodb+srv://mbwakoko88:0SdoPDz7iZng5kIw@cluster0.vi4ar.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-  )
+  .connect(MONGO_DB_CONNECTION_STRING)
   .then(() => {
     app.listen(8080, () => {
       console.log("Server is running on http://localhost:8080");

@@ -1,9 +1,7 @@
-const { validationResult } = require("express-validator");
 const User = require("../models/modelsUser");
-//const HttpError = require("../models/http-error");
 const bcrypt = require("bcrypt");
 
-//i removed next since it is used when create a middleware there is no need for it here in controllers
+//I removed next since it is used when create a middleware there is no need for it here in controllers
 
 const createUser = async (req, res) => {
   const { firstName, lastName, email, password, dateOfBirth } = req.body;
@@ -21,13 +19,10 @@ const createUser = async (req, res) => {
   try {
     await newUser.save();
   } catch (err) {
-    return res
-      .status(500)
-      .json({ message: "Failed to create user. Please try again." });
+    return res.status(500).json({ message: err.message });
   }
 
   return res.status(200).json({ user: newUser });
-  // return res.send("fuck you");
 };
 
 const displayUsers = async (req, res) => {
@@ -83,13 +78,11 @@ const getUser = async (req, res) => {
   try {
     existingUser = await User.findById(userId);
   } catch (e) {
-    return res
-      .status(500)
-      .json({ message: "There was a server error you motherfucker" });
+    return res.status(500).json({ message: "There was a server error" });
   }
 
   if (!existingUser) {
-    return res.json({ message: "There is no such user" });
+    return res.status(404).json({ message: "There is no such user" });
   }
   return res.send(true);
 };
