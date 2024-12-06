@@ -1,4 +1,5 @@
 const User = require("../models/modelsUser");
+const HttpError = require("../models/modelsHttpError");
 const bcrypt = require("bcrypt");
 
 //I removed next since it is used when create a middleware there is no need for it here in controllers
@@ -25,15 +26,14 @@ const createUser = async (req, res) => {
   return res.status(200).json({ user: newUser });
 };
 
-const displayUsers = async (req, res) => {
+const displayUsers = async (req, res, next) => {
   let users;
 
   try {
     users = await User.find({}, "+hashed_password");
   } catch (err) {
-    return res
-      .status(500)
-      .json({ message: "Unable to retrieve users, please try again later." });
+    const error = new HttpError("Unable to retrieve users. Please try again later.", 500);   
+    return next(error)
   }
 
   res.status(200).json({
@@ -41,7 +41,7 @@ const displayUsers = async (req, res) => {
   });
 };
 
-const loginUser = async (req, res) => {
+const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
 
   let existingUser;
@@ -51,19 +51,18 @@ const loginUser = async (req, res) => {
     existingUser = await User.findOne({ email });
     console.log(email, password, existingUser);
   } catch (err) {
-    return res.status(500).json({ message: "Login Failed." });
+    const error = new HttpError("Login failed.", 500);   
+    return next(error)
   }
 
   if (!existingUser) {
-    return res
-      .status(400)
-      .json({ message: "User does not exist. Please create an account." });
+    const error = new HttpError("User does not exist. Please create an account.", 400);   
+    return next(error)
   }
 
   if (!bcrypt.compareSync(password, existingUser.hashed_password)) {
-    return res
-      .status(400)
-      .json({ message: "Invalid password. Please try again." });
+    const error = new HttpError("Invalid password. Please try again.", 400);   
+    return next(error)
   }
   return res.status(200).json({
     message: "Successfully logged in!",
@@ -71,18 +70,20 @@ const loginUser = async (req, res) => {
   });
 };
 
-const getUser = async (req, res) => {
+const getUser = async (req, res, next) => {
   const { userId } = req.params;
 
   let existingUser;
   try {
     existingUser = await User.findById(userId);
   } catch (e) {
-    return res.status(500).json({ message: "There was a server error" });
+    const error = new HttpError("Sever error. Try again later.", 500);   
+    return next(error)
   }
 
   if (!existingUser) {
-    return res.status(404).json({ message: "There is no such user" });
+    const error = new HttpError("User does not exist.", 500);   
+    return next(error)
   }
   return res.send(true);
 };

@@ -1,30 +1,29 @@
 const Task = require("../models/modelsTask");
+const HttpError = require("../models/modelsHttpError.js");
 
-const displayAllTasks = async (req, res) => {
+const displayAllTasks = async (req, res, next) => {
   let tasks;
 
   try {
     tasks = await Task.find();
   } catch (err) {
-    return res
-      .status(500)
-      .json({ message: "Unable to retrieve tasks, please try again later." });
+    const error = new HttpError("Unable to retrieve tasks, please try again later.", 500);   
+    return next(error);
   }
 
   return res.status(200).json({
     tasks: tasks.map((task) => task.toObject({ getters: true })),
   });
 };
-const displayUserTasks = async (req, res) => {
+const displayUserTasks = async (req, res, next) => {
   const { userId } = req.params;
   let tasks;
 
   try {
     tasks = await Task.find({ userId });
   } catch (err) {
-    return res
-      .status(500)
-      .json({ message: "Unable to retrieve tasks, please try again later." });
+    const error = new HttpError("Unable to retrieve tasks, please try again later.", 500);   
+    return next(error);
   }
 
   return res.status(200).json({
@@ -32,7 +31,7 @@ const displayUserTasks = async (req, res) => {
   });
 };
 
-const createTask = async (req, res) => {
+const createTask = async (req, res, next) => {
   const { title, category, priority, userId } = req.body;
 
   const newTask = new Task({
@@ -45,15 +44,14 @@ const createTask = async (req, res) => {
   try {
     await newTask.save();
   } catch (err) {
-    return res
-      .status(500)
-      .json({ message: "Unable to create a new task, please try again." });
+    const error = new HttpError("Unable to create a new task, please try again later.", 500);   
+    return next(error)
   }
 
   return res.status(200).json({ task: newTask });
 };
 
-const editTask = async (req, res) => {
+const editTask = async (req, res, next) => {
   const { title, category, priority } = req.body;
   const taskID = req.params.taskID;
   let task;
@@ -61,13 +59,13 @@ const editTask = async (req, res) => {
   try {
     task = await Task.findById(taskID);
   } catch (err) {
-    return res
-      .status(500)
-      .json({ message: "A problem occurred. Task could not be edited." });
+    const error = new HttpError("A problem occurred. Task could not be edited.", 500);   
+    return next(error)
   }
 
   if (!task) {
-    return res.status(404).json({ message: "Task not found." });
+    const error = new HttpError("Task not found.", 404);   
+    return next(error)
   }
 
   task.title = title;
@@ -77,9 +75,8 @@ const editTask = async (req, res) => {
   try {
     await task.save();
   } catch (err) {
-    return res
-      .status(500)
-      .json({ message: "A problem occurred. Task could not be edited." });
+    const error = new HttpError("A problem occurred. Task could not be edited.", 500);   
+    return next(error)
   }
   return res.status(200).json({
     message: "Task updated successfully!",
@@ -87,41 +84,39 @@ const editTask = async (req, res) => {
   });
 };
 
-const deleteTask = async (req, res) => {
+const deleteTask = async (req, res, next) => {
   const taskID = req.params.taskID;
   let task;
 
   try {
     task = await Task.findById(taskID);
   } catch (err) {
-    return res
-      .status(500)
-      .json({ message: "A problem occurred. Task cannot be deleted. " });
+    const error = new HttpError("A problem occurred. Task could not be deleted.", 500);   
+    return next(error)
   }
 
   if (!task) {
-    return res.status(404).json({ message: "This task could not be found." });
+    const error = new HttpError("This task could not be found.", 404);   
+    return next(error)
   }
 
   try {
     await Task.deleteOne({ _id: taskID });
   } catch (err) {
-    return res
-      .status(500)
-      .json({ message: "A problem occurred. Task cannot be deleted." });
+    const error = new HttpError("A problem occurred. Task could not be deleted.", 500);   
+    return next(error)
   }
 
   res.status(200).json({ message: "Task deleted." });
 };
 
-const displayTasksByCategory = async (req, res) => {
+const displayTasksByCategory = async (req, res, next) => {
   const { category } = req.params;
   try {
     tasks = await Task.find({ category: category });
   } catch (err) {
-    return res
-      .status(500)
-      .json({ message: "Unable to retrieve tasks, please try again later." });
+    const error = new HttpError("Unable to retrieve tasks. Please try again later.", 500);   
+    return next(error)
   }
 
   res.status(200).json({
