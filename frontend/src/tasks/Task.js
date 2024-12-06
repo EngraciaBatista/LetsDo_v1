@@ -47,8 +47,8 @@ function TaskManager() {
           userId: localStorage.getItem("userId"),
           title: task,
           status: false,
-          category: "General",
-          priority: "Medium",
+          category: category,
+          priority: priority
         };
         console.log(newTask);
         const addedTask = await createTask(newTask);
@@ -64,7 +64,7 @@ function TaskManager() {
 
   const handleUpdateTask = async () => {
     try {
-      const updatedTask = { title: task };
+      const updatedTask = { title: task, category: category, priority: priority };
       await updateTask(currentTaskId, updatedTask);
       const tasks = await getTasks();
       setTaskList(tasks);
