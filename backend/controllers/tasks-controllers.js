@@ -104,7 +104,7 @@ const deleteTask = async (req, res) => {
   }
 
   try {
-    await Task.deleteOne();
+    await Task.deleteOne({ _id: taskID });
   } catch (err) {
     return res
       .status(500)

@@ -62,12 +62,6 @@ function TaskManager() {
     }
   };
 
-  const handleEditTask = (id, currentTaskTitle) => {
-    setTask(currentTaskTitle);
-    setIsEditing(true);
-    setCurrentTaskId(id);
-  };
-
   const handleUpdateTask = async () => {
     try {
       const updatedTask = { title: task };
@@ -88,6 +82,7 @@ function TaskManager() {
     setCurrentTaskId(null);
   };
 
+  /*
   const handleDeleteTask = async (id) => {
     try {
       await deleteTask(id);
@@ -97,6 +92,16 @@ function TaskManager() {
       console.error("Error deleting task:", error);
     }
   }; //Test if it's still deleting everything. If yes, try to replace with old code.
+*/
+  const handleDeleteTask = async (id) => {
+    try {
+        await deleteTask(id);
+        setTaskList((prevTasks) => prevTasks.filter(task => task._id !== id));
+    } catch (error) {
+        console.error("Error deleting task:", error);
+    }
+  };
+
 
   return (
     <div className="App">
