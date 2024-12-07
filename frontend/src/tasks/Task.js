@@ -47,8 +47,8 @@ function TaskManager() {
           userId: localStorage.getItem("userId"),
           title: task,
           status: false,
-          category: "General",
-          priority: "Medium",
+          category: category,
+          priority: priority,
         };
         console.log(newTask);
         const addedTask = await createTask(newTask);
@@ -64,7 +64,7 @@ function TaskManager() {
 
   const handleUpdateTask = async () => {
     try {
-      const updatedTask = { title: task };
+      const updatedTask = { title: task, priority:priority, category: category };
       await updateTask(currentTaskId, updatedTask);
       const tasks = await getTasks();
       setTaskList(tasks);
@@ -101,10 +101,26 @@ function TaskManager() {
         console.error("Error deleting task:", error);
     }
   };
-
+  
+ 
+  const handleLogout =()=>{
+   localStorage.removeItem("token");
+   localStorage.removeItem("userId");
+   alert("You have been logged out.");
+   navigate("./LandingPage.js");
+  }
 
   return (
     <div className="App">
+      <div className="header">
+      <img
+          className="corner-logo"
+          src="./letsdologo_header.png"
+          alt="LetsDo App Logo"
+        />
+       <div className="logOut" onClick={handleLogout}>Logout</div>
+      </div>
+      
       <div className="app-container">
         <img src="/letsdologo_header.png" alt="Logo" className="logo" />
         <h2>Task Manager</h2>
