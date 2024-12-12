@@ -9,15 +9,6 @@ import {
 } from "../services/taskService";
 import { useNavigate } from "react-router-dom";
 
-/*
-function TaskManager() {
-  const [task, setTask] = useState("");
-  const [taskList, setTaskList] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
-  const [currentTaskId, setCurrentTaskId] = useState(null);
-  const navigate = useNavigate();
-*/
-
 function TaskManager() {
   const [task, setTask] = useState("");
   const [category, setCategory] = useState('Personal');
@@ -47,8 +38,8 @@ function TaskManager() {
           userId: localStorage.getItem("userId"),
           title: task,
           status: false,
-          category: "General",
-          priority: "Medium",
+          category: category,
+          priority: priority,
         };
         console.log(newTask);
         const addedTask = await createTask(newTask);
@@ -82,17 +73,6 @@ function TaskManager() {
     setCurrentTaskId(null);
   };
 
-  /*
-  const handleDeleteTask = async (id) => {
-    try {
-      await deleteTask(id);
-      await storeTasks();
-      console.log(taskList);
-    } catch (error) {
-      console.error("Error deleting task:", error);
-    }
-  }; //Test if it's still deleting everything. If yes, try to replace with old code.
-*/
   const handleDeleteTask = async (id) => {
     try {
         await deleteTask(id);
